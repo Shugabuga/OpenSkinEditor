@@ -16,7 +16,7 @@ body {
     left: 0;
 }
 
-.iframe {
+.iframe, iframe {
     border: 0px transparent;
     position: absolute;
     top: 55px;

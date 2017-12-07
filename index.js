@@ -4,6 +4,9 @@ function update() {
     } catch(err) {
 
     }
+
+    save()
+
     var element = "";
 
     element += ".navbar {" + document.getElementById('header').value + ";}";""
@@ -47,7 +50,7 @@ function jsonExport() {
     // Metadata
     var element = '{"name": "' + document.getElementById('skinName').value + '","logo": "' + document.getElementById('logo').value
     element += '","author": "' + document.getElementById('authorName').value + '","description": "' + document.getElementById('description').value
-    element += '","styles": [{"'
+    element += '","styles": [{'
     // General
     element += '"header": "' + document.getElementById('header').value + '",'
     element += '"label": "' + document.getElementById('label').value + '",'
@@ -61,10 +64,11 @@ function jsonExport() {
     
     // Emulator
     element += '"emulatorBackground": "' + document.getElementById('emulatorBackground').value + '",'
+    element += '"emulatorBackground": "' + document.getElementById('emulatorScreen').value + '",'
     element += '"triggerL": "' + document.getElementById('triggerL').value + '",'
     element += '"triggerR": "' + document.getElementById('triggerR').value + '",'
     element += '"center": "' + document.getElementById('center').value + '",'
-    element += '"right": "' + document.getElementById('right').value + '",'
+    // element += '"right": "' + document.getElementById('right').value + '",'
     element += '"right": "' + document.getElementById('right').value + '",'
     element += '"left": "' + document.getElementById('left').value + '",'
     element += '"up": "' + document.getElementById('up').value + '",'
@@ -75,8 +79,97 @@ function jsonExport() {
     element += '"select": "' + document.getElementById('select').value + '"}]}'
     
     document.getElementById('themeJSON').innerHTML = element
+
+
     
     return element
+}
+
+
+// Import stuffs
+var importFile = ""
+
+var handleFileSelect = function(evt) {
+  var files = evt.target.files;
+  var file = files[0];
+  if (files && file) {
+      var reader = new FileReader();
+      reader.onload = function(readerEvt) {
+          var result = readerEvt.target.result;
+          importFile = result;
+          document.getElementById('textFile').value = result
+      };
+      reader.readAsBinaryString(file);
+  }
+};
+
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+    document.getElementById('importFile').addEventListener('change', handleFileSelect, false);
+} else {
+    alert('[OpenSkin Viewer]\nSadly, your browser isn\'t compatible. Try using a better browser, such as Chrome or Safari.');
+}
+
+function importFileText() {
+  importFile = document.getElementById('textFile').value
+}
+
+function jsonImport(jsonStr) {
+    obj = JSON.parse(jsonStr);
+    // obj = jsonStr;
+    console.log(obj)
+    try {
+      document.getElementById('skinName').value = obj.name
+    } catch(err) {
+      console.log(err)
+      firstRun()
+    }
+
+    if (obj.name != undefined) {document.getElementById('skinName').value = obj.name}
+    if (obj.author != undefined) {document.getElementById('authorName').value = obj.author}
+    if (obj.logo != undefined) {document.getElementById('logo').value = obj.logo}
+    if (obj.descr != undefined) {document.getElementById('description').value = obj.description}
+
+
+    if (obj.styles[0].header != undefined) {document.getElementById('header').value = obj.styles[0].header}
+    if (obj.styles[0].label != undefined) {document.getElementById('label').value = obj.styles[0].label}
+    if (obj.styles[0].button != undefined) {document.getElementById('button').value = obj.styles[0].button}
+    if (obj.styles[0].alert != undefined) {document.getElementById('alert').value = obj.styles[0].alert}
+    if (obj.styles[0].containerBackground != undefined) {document.getElementById('containerBackground').value = obj.styles[0].containerBackground}
+    if (obj.styles[0].cell != undefined) {document.getElementById('cell').value = obj.styles[0].cell}
+    if (obj.styles[0].cellChevron != undefined) {document.getElementById('cellChevron').value = obj.styles[0].cellChevron}
+    if (obj.styles[0].toolbar != undefined) {document.getElementById('toolbar').value = obj.styles[0].toolbar}
+    if (obj.styles[0].emulatorBackground != undefined) {document.getElementById('emulatorBackground').value = obj.styles[0].emulatorBackground}
+    if (obj.styles[0].emulatorScreen != undefined) {document.getElementById('emulatorScreen').value = obj.styles[0].emulatorScreen}
+    if (obj.styles[0].triggerL != undefined) {document.getElementById('triggerL').value = obj.styles[0].triggerL}
+    if (obj.styles[0].triggerR != undefined) {document.getElementById('triggerR').value = obj.styles[0].triggerR}
+    if (obj.styles[0].center != undefined) {document.getElementById('center').value = obj.styles[0].center}
+    if (obj.styles[0].right != undefined) {document.getElementById('right').value = obj.styles[0].right}
+    // document.getElementById('right').value = obj.styles[0].PROPERTY
+    if (obj.styles[0].left != undefined) {document.getElementById('left').value = obj.styles[0].left}
+    if (obj.styles[0].up != undefined) {document.getElementById('up').value = obj.styles[0].up}
+    if (obj.styles[0].down != undefined) {document.getElementById('down').value = obj.styles[0].down}
+    if (obj.styles[0].aBtn != undefined) {document.getElementById('aBtn').value = obj.styles[0].aBtn}
+    if (obj.styles[0].bBtn != undefined) {document.getElementById('bBtn').value = obj.styles[0].bBtn}
+    if (obj.styles[0].startBtn != undefined) {document.getElementById('startBtn').value = obj.styles[0].startBtn}
+    if (obj.styles[0].select != undefined) {document.getElementById('select').value = obj.styles[0].select}
+
+    update()
+
+    return true
+}
+
+function save() {
+    // current = jsonExport()
+    localStorage.setItem('saved', jsonExport())
+}
+
+function load() {
+    console.log("[OpenSkin Editor] Loading from localStorage...")
+    var saved = localStorage.getItem('saved');
+    if (saved == 'null') {
+        firstRun()
+    }
+    jsonImport(saved)
 }
 
 // Shadow DOM for iGBA preview
@@ -473,6 +566,8 @@ function shadow() {
       
     } else {
       
+      console.log("[OpenSkin Editor] Your browser does not support Shadow DOMs.")
+      document.getElementById("iframe_shim_loaded").style.display = "block";
       let newiframe = document.createElement("iframe");
       newiframe.srcdoc = content;
       
@@ -484,4 +579,20 @@ function shadow() {
     }
 }
 
-console.log("[OpenSkin Editor] Loaded!")
+function firstRun() {
+  console.log('No save detected. Generating save and restarting...')
+  jsonImport("{\"name\": \"\",\"logo\": \"\",\"author\": \"\",\"description\": \"\",\"styles\": [{\"header\": \"\",\"label\": \"\",\"button\": \"\",\"alert\": \"\",\"containerBackground\": \"\",\"cell\": \"\",\"cellChevron\": \"\",\"toolbar\": \"\",\"emulatorBackground\": \"undefined\",\"emulatorBackground\": \"undefined\",\"triggerL\": \"\",\"triggerR\": \"\",\"center\": \"\",\"right\": \"\",\"left\": \"\",\"up\": \"\",\"down\": \"\",\"aBtn\": \"\",\"bBtn\": \"\",\"startBtn\": \"\",\"select\": \"\"}]}")
+  save()
+  location.reload()
+}
+
+function init() {
+    console.log("[OpenSkin Editor] Initializing...");
+    load();
+    update();
+}
+
+window.onload = function() {
+    console.log("[OpenSkin Editor] Loaded!")
+    init()
+}
