@@ -49,8 +49,8 @@ function update() {
 function jsonExport() {
     // Metadata
     var element = '{"name": "' + document.getElementById('skinName').value + '","logo": "' + document.getElementById('logo').value
-    element += '","author": "' + document.getElementById('authorName').value + '","description": "' + document.getElementById('description').value
-    element += '","styles": [{'
+    element += '","author": "' + document.getElementById('authorName').value + '","description": "' + document.getElementById('description').value + "\","
+    element += '"styles": [{'
     // General
     element += '"header": "' + document.getElementById('header').value + '",'
     element += '"label": "' + document.getElementById('label').value + '",'
@@ -127,7 +127,7 @@ function jsonImport(jsonStr) {
     if (obj.name != undefined) {document.getElementById('skinName').value = obj.name}
     if (obj.author != undefined) {document.getElementById('authorName').value = obj.author}
     if (obj.logo != undefined) {document.getElementById('logo').value = obj.logo}
-    if (obj.descr != undefined) {document.getElementById('description').value = obj.description}
+    if (obj.description != undefined) {document.getElementById('description').value = obj.description}
 
 
     if (obj.styles[0].header != undefined) {document.getElementById('header').value = obj.styles[0].header}
