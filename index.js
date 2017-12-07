@@ -64,7 +64,7 @@ function jsonExport() {
     
     // Emulator
     element += '"emulatorBackground": "' + document.getElementById('emulatorBackground').value + '",'
-    element += '"emulatorBackground": "' + document.getElementById('emulatorScreen').value + '",'
+    element += '"emulatorScreen": "' + document.getElementById('emulatorScreen').value + '",'
     element += '"triggerL": "' + document.getElementById('triggerL').value + '",'
     element += '"triggerR": "' + document.getElementById('triggerR').value + '",'
     element += '"center": "' + document.getElementById('center').value + '",'
