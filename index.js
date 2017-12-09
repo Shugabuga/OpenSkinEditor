@@ -31,6 +31,7 @@ function update() {
     element += "#bBtn {" + document.getElementById('bBtn').value + ";}";
     element += "#startbtn {" + document.getElementById('startBtn').value + ";}";
     element += "#select {" + document.getElementById('select').value + ";}";
+    element += document.getElementById('custom_igba').value // Custom
     console.log(element)
 
     // iframe = window.frames[0].document
@@ -76,7 +77,13 @@ function jsonExport() {
     element += '"aBtn": "' + document.getElementById('aBtn').value + '",'
     element += '"bBtn": "' + document.getElementById('bBtn').value + '",'
     element += '"startBtn": "' + document.getElementById('startBtn').value + '",'
-    element += '"select": "' + document.getElementById('select').value + '"}]}'
+    element += '"select": "' + document.getElementById('select').value + '",'
+
+    // Custom
+    element += '"custom": [{'
+    element += '"igba": "' + document.getElementById('custom_igba').value + '"'
+
+    element += '}]}]}'
     
     document.getElementById('themeJSON').innerHTML = element
 
@@ -152,6 +159,11 @@ function jsonImport(jsonStr) {
     if (obj.styles[0].bBtn != undefined) {document.getElementById('bBtn').value = obj.styles[0].bBtn}
     if (obj.styles[0].startBtn != undefined) {document.getElementById('startBtn').value = obj.styles[0].startBtn}
     if (obj.styles[0].select != undefined) {document.getElementById('select').value = obj.styles[0].select}
+
+    // Custom
+    try {
+      if (obj.styles[0].custom[0].igba != undefined) {document.getElementById('custom_igba').value = obj.styles[0].custom[0].igba}
+    } catch(err) {}
 
     update()
 
@@ -310,7 +322,7 @@ function shadow() {
           <div class="popup popup-load tablet-fullscreen" id="emulatorPopup">
              <div class="content-block">
                 <div class="load">
-                   <div id="emulator_target" style="margin:0!important;padding:0!important;left:0!important;position:absolute;transform:translate(0,-35px);width:100%;height:160px;background-color:black;"><br></div>
+                   <div id="emulator_target" style="margin:0!important;padding:0!important;left:0!important;position:absolute;transform:translate(0,-35px);width:100%;height:330px;background-color:black;"><br></div>
                    <span style="font-size: 15px; color: white; top: 0; font-family: arial; margin-top:16px; margin-right:16px;" id="tempMessage"></span>
                    <!-- Add This In (you can just copy the IDs of the buttons) -->
                    <div class="controllers controls">

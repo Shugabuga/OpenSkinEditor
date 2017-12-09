@@ -16,7 +16,7 @@ body {
     left: 0;
 }
 
-.iframe, iframe {
+/*.iframe, iframe {
     border: 0px transparent;
     position: absolute;
     top: 55px;
@@ -24,7 +24,19 @@ body {
     width: 91%;
     height: 440px;
 
+}*/
+
+.iframe, iframe {
+    border: 0px transparent;
+    position: absolute;
+    top: 84px;
+    left: 17px;
+    width: 91%;
+    height: 624px;
+    zoom:0.7!important;
+
 }
+
 
 .code {
     color: red!important;
