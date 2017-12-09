@@ -63,6 +63,9 @@
       <div style="display:none" id="iframe_shim_loaded" class="alert alert-warning" role="alert">
         <b>Warning!</b> Your browser doesn't support the live CSS preview yet. Please use a up-to-date Chromium or WebKit browser that supports Shadow DOMs.
       </div>
+      <noscript><div id="iframe_shim_loaded" class="alert alert-danger" role="alert">
+        <b>Warning!</b> JavaScript is disabled in your browser. As a result, OpenSkin Editor will not work. Please <a href="https://www.enable-javascript.com/" target="_blank">follow these steps to enable JavaScript</a> or disable extensions like NoScript for this site (don't worry, we don't track you and have no ads).
+      </div></noscript>
       <div class="row">
         <div class="col-md-9">
           <div class="metadata">
@@ -154,7 +157,7 @@
         </div>
 
         <div class="fade modal modal-export" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Exported Skin</h5>
@@ -164,13 +167,15 @@
               </div>
               <div class="modal-body">
                 <p>The below text contains your theme:</p>
-                <div style='font-family: "Menlo", "American Typewriter", serif;color:red' id="themeJSON">
+<!--                 <div style='font-family: "Menlo", "American Typewriter", serif;color:red' id="themeJSON">
 
-                </div>
+                </div> -->
+                <textarea style='font-family: "Menlo", "American Typewriter", serif;' id="themeJSON" class="form-control" rows="5" readonly="true"></textarea>
               </div>
               <div class="modal-footer">
                 <button onclick="window.open('data:application/json;utf8,' + document.getElementById('themeJSON').innerHTML + '','_blank')" type="button" class="btn btn-info">Open in New Tab</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <a href="#" download="theme.json" xonclick="window.open(')" id="dl-btn" class="btn btn-primary">Download</a>
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -197,7 +202,7 @@
         </div>
 
         <div class="fade modal modal-importFile" tabindex="-1" role="dialog">
-          <div class="modal-dialog modal-lg " role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Import Skin</h5>

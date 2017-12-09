@@ -86,6 +86,8 @@ function jsonExport() {
     element += '}]}]}'
     
     document.getElementById('themeJSON').innerHTML = element
+    document.getElementById('dl-btn').href = 'data:application/octet-stream;utf8,' + document.getElementById('themeJSON').innerHTML
+    document.getElementById('dl-btn').download = document.getElementById('skinName').value + ".json"
 
 
     
