@@ -1,3 +1,6 @@
+// Bad fix for the viewport bug (iOS)
+document.querySelector("[name=viewport]").content = "width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"
+
 function update() {
     try {
         shadow()
