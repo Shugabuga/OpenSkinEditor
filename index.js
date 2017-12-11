@@ -594,6 +594,24 @@ function shadow() {
     }
 }
 
+var dpaster = ""
+function dpaste(str, openTab) {
+    var request = new XMLHttpRequest();
+    request.open("POST", 'http://dpaste.com/api/v2/', false);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send("poster=" + encodeURIComponent(document.getElementById('authorName').value) + "&syntax=json&expiry_days=365&title=" + encodeURIComponent(document.getElementById('skinName').value) + "&content=" + encodeURIComponent(str));
+    // request = JSON.parse(request.responseText);
+    // var headers = request.getAllResponseHeaders();
+    // console.log(request)
+    // console.log(headers)
+    console.log("[dpaste-uploader] Uploaded to " + request.responseText)
+    dpaster = request.responseText
+    if(openTab) {
+        window.open(dpaster + '','_blank')
+    }
+    return request.status
+}
+
 function firstRun() {
   console.log('No save detected. Generating save and restarting...')
   jsonImport("{\"name\": \"\",\"logo\": \"\",\"author\": \"\",\"description\": \"\",\"styles\": [{\"header\": \"\",\"label\": \"\",\"button\": \"\",\"alert\": \"\",\"containerBackground\": \"\",\"cell\": \"\",\"cellChevron\": \"\",\"toolbar\": \"\",\"emulatorBackground\": \"undefined\",\"emulatorBackground\": \"undefined\",\"triggerL\": \"\",\"triggerR\": \"\",\"center\": \"\",\"right\": \"\",\"left\": \"\",\"up\": \"\",\"down\": \"\",\"aBtn\": \"\",\"bBtn\": \"\",\"startBtn\": \"\",\"select\": \"\"}]}")
