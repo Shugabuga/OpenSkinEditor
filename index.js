@@ -1,6 +1,3 @@
-// Bad fix for the viewport bug (iOS)
-document.querySelector("[name=viewport]").content = "width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"
-
 function update() {
     try {
         shadow()
@@ -626,6 +623,10 @@ function init() {
     console.log("[OpenSkin Editor] Initializing...");
     load();
     update();
+    // Bad fix for the viewport bug (iOS)
+    setTimeout(function() {
+        document.querySelector("[name=viewport]").content = "width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"
+    }, 500)
 }
 
 window.onload = function() {
