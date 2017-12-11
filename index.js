@@ -34,6 +34,9 @@ function update() {
     element += document.getElementById('custom_igba').value // Custom
     console.log(element)
 
+    // iGBA Preview
+    document.getElementById('preview_iGBA').href = "http://igbaemu.com/app/?q=raw&name=OpenSkin%20Editor&url=" + btoa(element)
+
     // iframe = window.frames[0].document
     iframe = document.querySelector('igba-frame').shadowRoot
 
@@ -88,8 +91,6 @@ function jsonExport() {
     document.getElementById('themeJSON').innerHTML = element
     document.getElementById('dl-btn').href = 'data:application/octet-stream;utf8,' + document.getElementById('themeJSON').innerHTML
     document.getElementById('dl-btn').download = document.getElementById('skinName').value + ".json"
-
-
     
     return element
 }
