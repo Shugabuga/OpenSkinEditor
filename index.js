@@ -31,11 +31,14 @@ function update() {
     element += "#bBtn {" + document.getElementById('bBtn').value + ";}";
     element += "#startbtn {" + document.getElementById('startBtn').value + ";}";
     element += "#select {" + document.getElementById('select').value + ";}";
+    element += "#select {" + document.getElementById('gradient').value + ";}"; // Unofficial
     element += document.getElementById('custom_igba').value // Custom
+    element += document.getElementById('custom_eclipse').value // Custom
     console.log(element)
 
     // iGBA Preview
     document.getElementById('preview_iGBA').href = "http://igbaemu.com/app/?q=raw&name=OpenSkin%20Editor&url=" + btoa(element)
+    document.getElementById('preview_eclipse').href = "http://eclipseemu.me/play?q=raw&name=OpenSkin%20Editor&url=" + btoa(element)
 
     // iframe = window.frames[0].document
     iframe = document.querySelector('igba-frame').shadowRoot
@@ -65,6 +68,8 @@ function jsonExport() {
     element += '"cell": "' + document.getElementById('cell').value + '",'
     element += '"cellChevron": "' + document.getElementById('cellChevron').value + '",'
     element += '"toolbar": "' + document.getElementById('toolbar').value + '",'
+
+    element += '"gradient": "' + document.getElementById('gradient').value + '",'
     
     // Emulator
     element += '"emulatorBackground": "' + document.getElementById('emulatorBackground').value + '",'
@@ -84,6 +89,7 @@ function jsonExport() {
 
     // Custom
     element += '"custom": [{'
+    element += '"eclipse": "' + document.getElementById('custom_eclipse').value + '",'
     element += '"igba": "' + document.getElementById('custom_igba').value + '"'
 
     element += '}]}]}'
@@ -154,6 +160,7 @@ function jsonImport(jsonStr) {
     if (obj.styles[0].triggerR != undefined) {document.getElementById('triggerR').value = obj.styles[0].triggerR}
     if (obj.styles[0].center != undefined) {document.getElementById('center').value = obj.styles[0].center}
     if (obj.styles[0].right != undefined) {document.getElementById('right').value = obj.styles[0].right}
+    if (obj.styles[0].gradient != undefined) {document.getElementById('gradient').value = obj.styles[0].gradient}
     // document.getElementById('right').value = obj.styles[0].PROPERTY
     if (obj.styles[0].left != undefined) {document.getElementById('left').value = obj.styles[0].left}
     if (obj.styles[0].up != undefined) {document.getElementById('up').value = obj.styles[0].up}
@@ -166,6 +173,9 @@ function jsonImport(jsonStr) {
     // Custom
     try {
       if (obj.styles[0].custom[0].igba != undefined) {document.getElementById('custom_igba').value = obj.styles[0].custom[0].igba}
+    } catch(err) {}
+    try {
+      if (obj.styles[0].custom[0].eclipse != undefined) {document.getElementById('custom_eclipse').value = obj.styles[0].custom[0].eclipse}
     } catch(err) {}
 
     update()
